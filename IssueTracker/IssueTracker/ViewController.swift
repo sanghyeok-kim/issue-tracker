@@ -8,24 +8,38 @@
 import SnapKit
 import RxSwift
 import RxCocoa
+import Then
+import AuthenticationServices
 
 class ViewController: UIViewController {
-
-    let button = UIButton()
+    
+    let gitLoginButton = UIButton().then {
+        $0.setTitle("Github 계정으로 로그인", for: .normal)
+        $0.backgroundColor = .black
+        $0.setTitleColor(.white, for: .normal)
+    }
+    
+    let appleLoginButton = ASAuthorizationAppleIDButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        view.addSubview(button)
+        view.addSubview(gitLoginButton)
+        view.addSubview(appleLoginButton)
         
-        button.snp.makeConstraints { make in
+        gitLoginButton.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.height.equalTo(100)
+            make.width.height.equalTo(200)
         }
-        button.backgroundColor = .blue
         
-        button.rx.tap.bind { _ in
+        appleLoginButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(gitLoginButton.snp.bottom).offset(14)
+            make.width.height.equalTo(200)
+        }
+        
+        gitLoginButton.rx.tap.bind { _ in
             let clientID = "2ca00a62da0566df46d7"
             let scope = "login"
             let urlString = "https://github.com/login/oauth/authorize"
@@ -38,8 +52,19 @@ class ViewController: UIViewController {
             UIApplication.shared.open(url)
         }
         
+//        appleLoginButton.addAction(UIAction(handler: { _ in
+//            let appleIDProvider = ASAuthorizationAppleIDProvider()
+//            let request = appleIDProvider.createRequest()
+//            request.requestedScopes = [.fullName, .email]
+//            
+//            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+//            authorizationController.delegate = self
+//            authorizationController.presentationContextProvider = self
+//            authorizationController.performRequests()
+//        }), for: .touchUpInside)
     }
 }
+
 extension UIView {
     func addSubviews(_ views: UIView ...) {
         for view in views {

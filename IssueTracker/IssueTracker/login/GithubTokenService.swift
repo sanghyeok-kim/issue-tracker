@@ -18,7 +18,6 @@ final class GithubTokenService: GitHubTokenExchangable {
     func exchangeToken(by code: String) -> Single<String> {
         Single.create { [weak self] observe in
             self?.provider.request(.exchangeToken(code)) { result in
-                print("hello")
                 switch result {
                 case .success(let response):
                     guard let result = try? response.map(Token.self) else {
@@ -36,10 +35,4 @@ final class GithubTokenService: GitHubTokenExchangable {
             return Disposables.create { }
         }
     }
-}
-
-struct Token: Decodable {
-    let access_token: String
-    let scope: String
-    let token_type: String
 }
