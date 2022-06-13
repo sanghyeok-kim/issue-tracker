@@ -20,7 +20,7 @@
 		7235D91B2856D05200EDE584 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 7235D91A2856D05200EDE584 /* .swiftlint.yml */; };
 		72C10527285772D9007EC4E8 /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C10526285772D9007EC4E8 /* GithubAPI.swift */; };
 		72F41A742857329A00711F54 /* LoginReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F41A732857329A00711F54 /* LoginReactor.swift */; };
-		72F41A76285735B600711F54 /* GithubTokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F41A75285735B600711F54 /* GithubTokenProvider.swift */; };
+		72F41A76285735B600711F54 /* GithubTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F41A75285735B600711F54 /* GithubTokenService.swift */; };
 		D6EB8F0CCF74DC32CDE6D075 /* Pods_IssueTracker_IssueTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 421D64DBDD9DFB4CB324348D /* Pods_IssueTracker_IssueTrackerUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +62,7 @@
 		7235D91A2856D05200EDE584 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		72C10526285772D9007EC4E8 /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		72F41A732857329A00711F54 /* LoginReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginReactor.swift; sourceTree = "<group>"; };
-		72F41A75285735B600711F54 /* GithubTokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubTokenProvider.swift; sourceTree = "<group>"; };
+		72F41A75285735B600711F54 /* GithubTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubTokenService.swift; sourceTree = "<group>"; };
 		838AEF9487241F9CD36029D9 /* Pods-IssueTracker-IssueTrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker-IssueTrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-IssueTracker-IssueTrackerUITests/Pods-IssueTracker-IssueTrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		86B134DA61564D78031A8193 /* Pods-IssueTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.debug.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		B43469019AEDF55EA730B4DF /* Pods-IssueTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-IssueTrackerTests/Pods-IssueTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				72F41A732857329A00711F54 /* LoginReactor.swift */,
-				72F41A75285735B600711F54 /* GithubTokenProvider.swift */,
+				72F41A75285735B600711F54 /* GithubTokenService.swift */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -453,7 +453,7 @@
 				72C10527285772D9007EC4E8 /* GithubAPI.swift in Sources */,
 				722DBF1D2856CBC80021782E /* AppDelegate.swift in Sources */,
 				72F41A742857329A00711F54 /* LoginReactor.swift in Sources */,
-				72F41A76285735B600711F54 /* GithubTokenProvider.swift in Sources */,
+				72F41A76285735B600711F54 /* GithubTokenService.swift in Sources */,
 				722DBF1F2856CBC80021782E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

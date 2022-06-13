@@ -40,20 +40,35 @@ extension GithubAPI: TargetType {
         switch self {
         case .exchangeToken(let code):
             let params: [String: Any] = [
-                            "client_id": clientID,
-                            "client_secret": clientSecret,
-                            "code": code
-                        ]
+                "client_id": clientID,
+                "client_secret": clientSecret,
+                "code": code
+            ]
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        }
+    }
+    
+    var sampleData: Data {
+        switch self {
+        case .exchangeToken(_):
+            return Data(
+                   """
+                   {
+                   "access_token" : "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",
+                   "token_type" : "bearer",
+                   "scope" : ""
+                   }
+                   """.utf8
+            )
         }
     }
     
     var headers: [String : String]? {
         switch self {
-        case .exchangeToken(_)
-            return []
+        case .exchangeToken(_):
+            var header = ["Content-Type": "application/json"]
+            header["Accept"] = "application/json"
+            return header
         }
     }
-    
-    
 }

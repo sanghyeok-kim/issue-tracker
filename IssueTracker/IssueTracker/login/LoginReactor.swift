@@ -11,9 +11,10 @@ import RxCocoa
 
 final class LoginReactor: Reactor {
     var initialState: State = State()
+    private let tokenProvider = GithubTokenService()
     
     enum Action {
-        case inputUserCode
+        case inputUserCode(String)
     }
     
     enum Mutating {
@@ -26,8 +27,11 @@ final class LoginReactor: Reactor {
     
     func mutate(action: Action) -> Observable<Mutating> {
         switch action {
-        case .inputUserCode:
-            return 
+        case .inputUserCode(let code):
+            return tokenProvider
+                .exchangeToken(by: code)
+                .asObservable()
+                .map { Mutating.requestAccessToken($0) }
         }
     }
     
@@ -36,6 +40,7 @@ final class LoginReactor: Reactor {
         switch mutation {
         case .requestAccessToken(let token):
             newState.accessToken = token
-        return newState
+            return newState
+        }
     }
 }
