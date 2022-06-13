@@ -9,6 +9,7 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
@@ -21,24 +22,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         let url = URLContexts.first?.url
         let tempCode = url?.absoluteString.components(separatedBy: "code=").last ?? ""
-        
+       
         let clientID = "2ca00a62da0566df46d7"
-        
+        let clientSecret = "bf9ac50f855cabc69474299b177fa9e5082bdf07"
         let urlString = "https://github.com/login/oauth/access_token"
+        
         guard var components = URLComponents(string: urlString) else { return }
         components.queryItems = [
             URLQueryItem(name: "client_id", value: clientID),
-            URLQueryItem(name: "client_secret", value: clientID),
+            URLQueryItem(name: "client_secret", value: clientSecret),
             URLQueryItem(name: "code", value: tempCode)
         ]
-        
+
         guard let url = components.url else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
         let session = URLSession(configuration: .default)
         session.dataTask(with: request) { data, response, error in
-            print(String(data: data ?? Data(), encoding: .utf8))
+            print(String(data: data!, encoding: .utf8)!)
         }.resume()
         
     }

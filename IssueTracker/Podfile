@@ -23,6 +23,6 @@ target 'IssueTracker' do
   pod 'RxAppState'
   pod 'Then'
   pod 'SnapKit'
-  
+  pod 'Moya'  
 
 end
