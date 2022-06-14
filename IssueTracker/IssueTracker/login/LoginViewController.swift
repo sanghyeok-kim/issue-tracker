@@ -23,16 +23,16 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view = LoginView(frame: view.frame)
-//        view.backgroundColor = .white
-//
-//        view.addSubview(gitLoginButton)
-//        view.addSubview(appleLoginButton)
-//
-//        gitLoginButton.snp.makeConstraints { make in
-//            make.center.equalToSuperview()
-//            make.width.height.equalTo(200)
-//        }
+//        view = LoginView(frame: view.frame)
+        view.backgroundColor = .white
+
+        view.addSubview(gitLoginButton)
+        view.addSubview(appleLoginButton)
+
+        gitLoginButton.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.height.equalTo(200)
+        }
         
 //        appleLoginButton.snp.makeConstraints { make in
 //            make.centerX.equalToSuperview()
@@ -64,6 +64,27 @@ class LoginViewController: UIViewController {
 //            authorizationController.performRequests()
 //        }), for: .touchUpInside)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear!!!")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear")
+    }
+    
 }
 
 extension UIView {

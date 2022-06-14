@@ -34,7 +34,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
             .bind { [weak self] viewControllerType in
                 guard let self = self else { return }
                 print("state update \(viewControllerType)")
-                self.setRootViewController(viewController: viewControllerType)
+                let viewController = self.setRootViewController(viewController: viewControllerType)
+                if self.rootViewController != nil {
+                    UIApplication.shared.keyWindow?.rootViewController = viewController
+                }
+                self.rootViewController = viewController
             }
             .disposed(by: disposeBag)
     }
@@ -64,12 +68,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     }
 }
 extension SceneDelegate {
-    private func setRootViewController(viewController: ViewControllerType) {
+    private func setRootViewController(viewController: ViewControllerType) -> UIViewController {
         switch viewController {
         case .login:
-            rootViewController = LoginViewController()
+            return LoginViewController()
         case .issue:
-            rootViewController = IssueViewController()
+            return IssueViewController()
         }
     }
 }

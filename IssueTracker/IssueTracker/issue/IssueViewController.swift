@@ -9,4 +9,8 @@ import UIKit
 
 final class IssueViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 }

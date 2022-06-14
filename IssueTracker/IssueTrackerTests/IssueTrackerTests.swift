@@ -27,11 +27,9 @@ class IssueTrackerTests: XCTestCase {
             .map { $0.rootViewController }
             .compactMap { $0 }
             .bind {
-                XCTAssertEqual( $0, (.login))
+                XCTAssertEqual(true, ($0 == .login || $0  == .issue))
             }
             .dispose()
-        
-        
     }
     
     func testTokenExchange() {

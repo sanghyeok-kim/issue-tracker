@@ -9,7 +9,7 @@ import Foundation
 
 final class UserDefaultManager {
     static let shared = UserDefaultManager()
-    
+
     func save(accessToken: String) {
         UserDefaults.standard.set(accessToken, forKey: "accessToken")
     }
