@@ -51,15 +51,10 @@ extension GithubAPI: TargetType {
     var sampleData: Data {
         switch self {
         case .exchangeToken(_):
-            return Data(
-                   """
-                   {
-                   "access_token" : "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",
-                   "token_type" : "bearer",
-                   "scope" : ""
-                   }
-                   """.utf8
-            )
+            guard let json = Bundle.main.path(forResource: "MockAccessToken", ofType: "json") else { return Data() }
+            guard let jsonString = try? String(contentsOfFile: json) else { return Data() }
+            guard let mockData = jsonString.data(using: .utf8) else { return Data() }
+            return mockData
         }
     }
     

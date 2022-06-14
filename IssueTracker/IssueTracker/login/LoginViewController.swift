@@ -11,7 +11,7 @@ import RxCocoa
 import Then
 import AuthenticationServices
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     let gitLoginButton = UIButton().then {
         $0.setTitle("Github 계정으로 로그인", for: .normal)
@@ -33,11 +33,11 @@ class ViewController: UIViewController {
             make.width.height.equalTo(200)
         }
         
-        appleLoginButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(gitLoginButton.snp.bottom).offset(14)
-            make.width.height.equalTo(200)
-        }
+//        appleLoginButton.snp.makeConstraints { make in
+//            make.centerX.equalToSuperview()
+//            make.top.equalTo(gitLoginButton.snp.bottom).offset(14)
+//            make.width.height.equalTo(200)
+//        }
         
         gitLoginButton.rx.tap.bind { _ in
             let clientID = "2ca00a62da0566df46d7"
