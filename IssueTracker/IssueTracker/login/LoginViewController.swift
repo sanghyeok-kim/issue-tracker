@@ -23,15 +23,16 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        view.addSubview(gitLoginButton)
-        view.addSubview(appleLoginButton)
-        
-        gitLoginButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.height.equalTo(200)
-        }
+        view = LoginView(frame: view.frame)
+//        view.backgroundColor = .white
+//
+//        view.addSubview(gitLoginButton)
+//        view.addSubview(appleLoginButton)
+//
+//        gitLoginButton.snp.makeConstraints { make in
+//            make.center.equalToSuperview()
+//            make.width.height.equalTo(200)
+//        }
         
 //        appleLoginButton.snp.makeConstraints { make in
 //            make.centerX.equalToSuperview()

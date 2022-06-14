@@ -23,6 +23,7 @@
 		724F0EAF285854450094351C /* IssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F0EAE285854450094351C /* IssueViewController.swift */; };
 		724F0EB1285860A60094351C /* MockAccessToken.json in Resources */ = {isa = PBXBuildFile; fileRef = 724F0EB0285860A60094351C /* MockAccessToken.json */; };
 		724F0EB6285864C00094351C /* GithubRepositoryStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F0EB5285864C00094351C /* GithubRepositoryStub.swift */; };
+		724F0EBA285873700094351C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F0EB9285873700094351C /* LoginView.swift */; };
 		72C10527285772D9007EC4E8 /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C10526285772D9007EC4E8 /* GithubAPI.swift */; };
 		72F41A742857329A00711F54 /* SceneReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F41A732857329A00711F54 /* SceneReactor.swift */; };
 		72F41A76285735B600711F54 /* GithubTokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F41A75285735B600711F54 /* GithubTokenRepository.swift */; };
@@ -70,6 +71,7 @@
 		724F0EAE285854450094351C /* IssueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueViewController.swift; sourceTree = "<group>"; };
 		724F0EB0285860A60094351C /* MockAccessToken.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockAccessToken.json; sourceTree = "<group>"; };
 		724F0EB5285864C00094351C /* GithubRepositoryStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryStub.swift; sourceTree = "<group>"; };
+		724F0EB9285873700094351C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		72C10526285772D9007EC4E8 /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		72F41A732857329A00711F54 /* SceneReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneReactor.swift; sourceTree = "<group>"; };
 		72F41A75285735B600711F54 /* GithubTokenRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubTokenRepository.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				722DBF202856CBC80021782E /* LoginViewController.swift */,
+				724F0EB9285873700094351C /* LoginView.swift */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				724F0EAB28584BEE0094351C /* ViewControllerType.swift in Sources */,
 				72F41A76285735B600711F54 /* GithubTokenRepository.swift in Sources */,
 				724F0EA92858456B0094351C /* UserDefaultManager.swift in Sources */,
+				724F0EBA285873700094351C /* LoginView.swift in Sources */,
 				722DBF1F2856CBC80021782E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,10 +12,26 @@ import RxSwift
 
 class IssueTrackerTests: XCTestCase {
     
+    var sceneReactor: SceneReactor!
     var tokenExchangable: GitHubTokenExchangable!
     
     override func setUpWithError() throws {
+        sceneReactor = SceneReactor()
         tokenExchangable = GithubRepositoryStub()
+    }
+    
+    func testSceneReactor() {
+        sceneReactor.action.onNext(.inputUserCode("1234"))
+        sceneReactor.action.onNext(.checkRootViewController)
+        sceneReactor.state
+            .map { $0.rootViewController }
+            .compactMap { $0 }
+            .bind {
+                XCTAssertEqual( $0, (.login))
+            }
+            .dispose()
+        
+        
     }
     
     func testTokenExchange() {
@@ -25,7 +41,7 @@ class IssueTrackerTests: XCTestCase {
         guard let mockData = jsonString.data(using: .utf8) else { return }
         guard let expectedToken = try? JSONDecoder().decode(Token.self, from: mockData).access_token else { return }
         
-       tokenExchangable.provider.rx
+        tokenExchangable.provider.rx
             .request(.exchangeToken("code"))
             .map(Token.self)
             .map { $0.access_token }
