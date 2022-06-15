@@ -11,7 +11,7 @@ import RxRelay
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     var disposeBag: DisposeBag = DisposeBag()
-    
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let sceneInit = PublishRelay<Void>()
     private let takeCode = PublishRelay<String>()
     
@@ -33,7 +33,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
             .compactMap { $0 }
             .bind { [weak self] viewControllerType in
                 guard let self = self else { return }
-                print("state update \(viewControllerType)")
                 let viewController = self.setRootViewController(viewController: viewControllerType)
                 if self.rootViewController != nil {
                     UIApplication.shared.keyWindow?.rootViewController = viewController
@@ -47,7 +46,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     
     override init() {
         super.init()
-        reactor = SceneReactor()
+        self.reactor = SceneReactor(tokenProvider: GithubTokenRepository())
         sceneInit.accept(())
     }
     
@@ -55,7 +54,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             //window.rootViewController = rootViewController
-            window.rootViewController = LoginViewController()
+            window.rootViewController = LoginViewController(reactor: LoginReactor())
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -63,15 +62,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         let url = URLContexts.first?.url
-        let tempCode = url?.absoluteString.components(separatedBy: "code=").last ?? ""
-        takeCode.accept(tempCode)
+        let code = url?.absoluteString.components(separatedBy: "code=").last ?? ""
+        takeCode.accept(code)
     }
 }
 extension SceneDelegate {
     private func setRootViewController(viewController: ViewControllerType) -> UIViewController {
         switch viewController {
         case .login:
-            return LoginViewController()
+            return LoginViewController(reactor: LoginReactor())
         case .issue:
             return IssueViewController()
         }

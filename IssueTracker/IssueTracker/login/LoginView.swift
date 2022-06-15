@@ -56,7 +56,7 @@ final class LoginView: UIView {
         $0.setTitleColor(.blue, for: .normal)
     }
     
-    let githubLoginButton = UIButton().then {
+    lazy var githubLoginButton = UIButton().then {
         $0.setImage(UIImage(named: "githublogin"), for: .normal)
     }
     
@@ -154,5 +154,6 @@ final class LoginView: UIView {
             make.trailing.equalToSuperview().offset(-15)
             make.height.equalTo(60)
         }
+
     }
 }

@@ -12,27 +12,13 @@ import RxSwift
 
 class IssueTrackerTests: XCTestCase {
     
-    var sceneReactor: SceneReactor!
     var tokenExchangable: GitHubTokenExchangable!
     
     override func setUpWithError() throws {
-        sceneReactor = SceneReactor()
         tokenExchangable = GithubRepositoryStub()
     }
     
-    func testSceneReactor() {
-        sceneReactor.action.onNext(.inputUserCode("1234"))
-        sceneReactor.action.onNext(.checkRootViewController)
-        sceneReactor.state
-            .map { $0.rootViewController }
-            .compactMap { $0 }
-            .bind {
-                XCTAssertEqual(true, ($0 == .login || $0  == .issue))
-            }
-            .dispose()
-    }
-    
-    func testTokenExchange() {
+    func testTokenExchange() throws {
         let expectation = XCTestExpectation()
         guard let json = Bundle.main.path(forResource: "MockAccessToken", ofType: "json") else { return }
         guard let jsonString = try? String(contentsOfFile: json) else { return }

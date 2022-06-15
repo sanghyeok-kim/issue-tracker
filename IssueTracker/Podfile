@@ -24,5 +24,4 @@ target 'IssueTracker' do
   pod 'Then'
   pod 'SnapKit'
   pod 'Moya/RxSwift'  
-
 end
