@@ -11,11 +11,11 @@ import RxCocoa
 
 final class SceneReactor: Reactor {
     var initialState: State = State()
-    init (tokenProvider: GitHubTokenExchangable?) {
+    init (tokenProvider: GitHubTokenExchangable) {
         self.tokenProvider = tokenProvider
     }
     
-    private let tokenProvider: GitHubTokenExchangable?
+    private let tokenProvider: GitHubTokenExchangable
     
     enum Action {
         case checkRootViewController
@@ -33,7 +33,7 @@ final class SceneReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutating> {
         switch action {
         case .inputUserCode(let code):
-            return tokenProvider!
+            return tokenProvider
                 .exchangeToken(by: code)
                 .asObservable()
                 .do { accessToken in

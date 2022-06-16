@@ -26,6 +26,7 @@
 		724F0EBA285873700094351C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F0EB9285873700094351C /* LoginView.swift */; };
 		724F5C77285AC4AE00B479A2 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F5C76285AC4AE00B479A2 /* DependencyInjector.swift */; };
 		724F5C7A285AC5CC00B479A2 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F5C79285AC5CC00B479A2 /* Token.swift */; };
+		724F5C7C285ACEDF00B479A2 /* RequestGithubLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724F5C7B285ACEDF00B479A2 /* RequestGithubLogin.swift */; };
 		729D0A682859710A003873F8 /* LoginReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729D0A672859710A003873F8 /* LoginReactor.swift */; };
 		72C10527285772D9007EC4E8 /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C10526285772D9007EC4E8 /* GithubAPI.swift */; };
 		72CFB97E2859C12500104068 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72CFB97D2859C12500104068 /* UIView+Extension.swift */; };
@@ -78,6 +79,7 @@
 		724F0EB9285873700094351C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		724F5C76285AC4AE00B479A2 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		724F5C79285AC5CC00B479A2 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		724F5C7B285ACEDF00B479A2 /* RequestGithubLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGithubLogin.swift; sourceTree = "<group>"; };
 		729D0A672859710A003873F8 /* LoginReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginReactor.swift; sourceTree = "<group>"; };
 		72C10526285772D9007EC4E8 /* GithubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		72CFB97D2859C12500104068 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				72F41A75285735B600711F54 /* GithubTokenRepository.swift */,
 				72C10526285772D9007EC4E8 /* GithubAPI.swift */,
+				724F5C7B285ACEDF00B479A2 /* RequestGithubLogin.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				724F0EAB28584BEE0094351C /* ViewControllerType.swift in Sources */,
 				729D0A682859710A003873F8 /* LoginReactor.swift in Sources */,
 				72F41A76285735B600711F54 /* GithubTokenRepository.swift in Sources */,
+				724F5C7C285ACEDF00B479A2 /* RequestGithubLogin.swift in Sources */,
 				724F5C77285AC4AE00B479A2 /* DependencyInjector.swift in Sources */,
 				724F0EA92858456B0094351C /* UserDefaultManager.swift in Sources */,
 				724F0EBA285873700094351C /* LoginView.swift in Sources */,

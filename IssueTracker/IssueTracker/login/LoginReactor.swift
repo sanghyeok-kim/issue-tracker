@@ -16,7 +16,7 @@ final class LoginReactor: Reactor {
     }
     
     enum Mutating {
-        case requestGithubLogin
+        case notingToUpdateState
     }
     
     struct State {
@@ -25,23 +25,14 @@ final class LoginReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutating> {
         switch action {
         case .loginButtonTapped:
-            let clientID = "2ca00a62da0566df46d7"
-            let scope = "login"
-            let urlString = "https://github.com/login/oauth/authorize"
-            guard var components = URLComponents(string: urlString) else { return Observable.just(Mutation.requestGithubLogin) }
-            components.queryItems = [
-                URLQueryItem(name: "client_id", value: clientID),
-                URLQueryItem(name: "scope", value: scope),
-            ]
-            guard let url = components.url else { return Observable.just(Mutation.requestGithubLogin) }
-            UIApplication.shared.open(url)
-            return Observable.just(Mutation.requestGithubLogin)
+            RequestGithubLogin().openGithubLogin()
+            return Observable.just(Mutation.notingToUpdateState)
         }
     }
     
     func reduce(state: State, mutation: Mutating) -> State {
         switch mutation {
-        case .requestGithubLogin:
+        case .notingToUpdateState:
             break
         }
         return state
