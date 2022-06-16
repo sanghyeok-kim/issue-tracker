@@ -9,7 +9,7 @@ import UIKit
 
 struct RequestGithubLogin {
     func openGithubLogin() {
-        let clientID = "2ca00a62da0566df46d7"
+        let clientID = Bundle.main.object(forInfoDictionaryKey: "Client_ID") as? String ?? ""
         let scope = "login"
         let urlString = "https://github.com/login/oauth/authorize"
         guard var components = URLComponents(string: urlString) else { return }
