@@ -8,14 +8,25 @@
 import ReactorKit
 import RxAppState
 
-final class LoginViewController: UIViewController, View {
+final class LoginViewController: UIViewController, View, DependencySetable {
+    func setDependency(dependency: LoginDependency) {
+        self.dependency = dependency
+    }
+    
+    var dependency: LoginDependency? {
+        didSet {
+            self.reactor = dependency?.manager
+        }
+    }
+    
+    typealias DependencyType = LoginDependency
+    
     private lazy var loginView = LoginView(frame: view.frame)
     var disposeBag: DisposeBag = DisposeBag()
     
-    init(reactor: LoginReactor?) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        guard let reactor = reactor else { return }
-        self.reactor = reactor
+        DependencyInjector.shared.injecting(to: self)
     }
     
     @available(*, unavailable)

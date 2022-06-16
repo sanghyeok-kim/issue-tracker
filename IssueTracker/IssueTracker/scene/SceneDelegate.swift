@@ -9,14 +9,24 @@ import UIKit
 import ReactorKit
 import RxRelay
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencySetable {
+    typealias DependencyType = SceneDependency
+    
     var disposeBag: DisposeBag = DisposeBag()
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let sceneInit = PublishRelay<Void>()
     private let takeCode = PublishRelay<String>()
     
     private var rootViewController: UIViewController?
+    var dependency: SceneDependency? {
+        didSet {
+            self.reactor = dependency?.manager
+        }
+    }
     
+    func setDependency(dependency: SceneDependency) {
+        self.dependency = dependency
+    }
     func bind(reactor: SceneReactor) {
         sceneInit
             .map { Reactor.Action.checkRootViewController }
@@ -46,7 +56,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
     
     override init() {
         super.init()
-        self.reactor = SceneReactor(tokenProvider: GithubTokenRepository())
+        DependencyInjector.shared.injecting(to: self)
         sceneInit.accept(())
     }
     
@@ -54,7 +64,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             //window.rootViewController = rootViewController
-            window.rootViewController = LoginViewController(reactor: LoginReactor())
+            window.rootViewController = LoginViewController()
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -70,7 +80,7 @@ extension SceneDelegate {
     private func setRootViewController(viewController: ViewControllerType) -> UIViewController {
         switch viewController {
         case .login:
-            return LoginViewController(reactor: LoginReactor())
+            return LoginViewController()
         case .issue:
             return IssueViewController()
         }

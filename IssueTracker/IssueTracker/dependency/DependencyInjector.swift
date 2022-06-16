@@ -10,10 +10,8 @@ import Foundation
 final class DependencyInjector {
     static let shared = DependencyInjector()
     
-    private lazy var tokenProvider = GithubTokenRepository()
-    
     private lazy var dependencyDictionary: [ObjectIdentifier: Any] = [
-        ObjectIdentifier(SceneDelegate.self): SceneDependency(manager: SceneReactor(tokenProvider: tokenProvider)),
+        ObjectIdentifier(SceneDelegate.self): SceneDependency(manager: SceneReactor(tokenProvider: GithubTokenRepository())),
         ObjectIdentifier(LoginViewController.self): LoginDependency(manager: LoginReactor())]
     
     func injecting<T: DependencySetable>(to compose: T){
