@@ -37,3 +37,8 @@ final class LoginViewController: UIViewController, View {
         super.viewDidLoad()
     }
 }
+
+struct LoginDependency: Dependency {
+    typealias ManagerType = LoginReactor
+    let manager: ManagerType
+}

@@ -77,8 +77,8 @@ extension SceneDelegate {
     }
 }
 
-struct Token: Decodable {
-    let access_token: String
-    let scope: String
-    let token_type: String
+struct SceneDependency: Dependency {
+    typealias ManagerType = SceneReactor
+    let manager: ManagerType
 }
+
