@@ -69,6 +69,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
         
         let clientId = Bundle.main.object(forInfoDictionaryKey: "Client_ID") as? String ?? ""
         let clientSecret = Bundle.main.object(forInfoDictionaryKey: "Client_Secret") as? String ?? ""
+        print("client id \(clientId)")
+        print("client secret \(clientSecret)")
+        
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
