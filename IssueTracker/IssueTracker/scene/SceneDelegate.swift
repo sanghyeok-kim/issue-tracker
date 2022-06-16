@@ -40,16 +40,24 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
         
         reactor.state
             .map { $0.rootViewController }
+            .distinctUntilChanged()
             .compactMap { $0 }
             .bind { [weak self] viewControllerType in
                 guard let self = self else { return }
-                let viewController = self.setRootViewController(viewController: viewControllerType)
-                if self.rootViewController != nil {
-                    UIApplication.shared.keyWindow?.rootViewController = viewController
-                }
-                self.rootViewController = viewController
+                self.rootViewController = self.setRootViewController(viewController: viewControllerType)
             }
             .disposed(by: disposeBag)
+        
+        reactor.state
+            .map { $0.hasToken }
+            .compactMap { $0 }
+            .filter { $0 }
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                UIApplication.shared.keyWindow?.rootViewController = self.setRootViewController(viewController: .issue)
+            }
+            .disposed(by: disposeBag)
+            
     }
     
     var window: UIWindow?
