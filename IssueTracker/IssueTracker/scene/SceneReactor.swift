@@ -11,11 +11,11 @@ import RxCocoa
 
 final class SceneReactor: Reactor {
     var initialState: State = State()
-    init (tokenProvider: GitHubTokenExchangable?) {
+    init (tokenProvider: GitHubTokenExchangable) {
         self.tokenProvider = tokenProvider
     }
     
-    private let tokenProvider: GitHubTokenExchangable?
+    private let tokenProvider: GitHubTokenExchangable
     
     enum Action {
         case checkRootViewController
@@ -24,24 +24,26 @@ final class SceneReactor: Reactor {
     
     enum Mutating {
         case updateRootViewController(ViewControllerType)
+        case updateAccessTokenState(Bool)
     }
     
     struct State {
         var rootViewController: ViewControllerType?
+        var hasToken: Bool?
     }
     
     func mutate(action: Action) -> Observable<Mutating> {
         switch action {
         case .inputUserCode(let code):
-            return tokenProvider!
+            return tokenProvider
                 .exchangeToken(by: code)
                 .asObservable()
                 .do { accessToken in
                     UserDefaultManager.shared.save(accessToken: accessToken)
                 }
                 .map { [weak self] _ in
-                    guard let self = self else { return Mutating.updateRootViewController(.login) }
-                    return Mutating.updateRootViewController(self.checkRootViewController())
+                    guard let self = self else { return Mutating.updateAccessTokenState(false) }
+                    return Mutating.updateAccessTokenState(!UserDefaultManager.shared.getAccessToken().isEmpty)
                 }
             
         case .checkRootViewController:
@@ -55,13 +57,15 @@ final class SceneReactor: Reactor {
         switch mutation {
         case .updateRootViewController(let viewControllerType):
             newState.rootViewController = viewControllerType
-            return newState
+        case .updateAccessTokenState(let tokenResult):
+            newState.hasToken = tokenResult
         }
+        return newState
     }
 }
 
 extension SceneReactor {
     private func checkRootViewController() -> ViewControllerType {
-        (UserDefaultManager.shared.getAccessToken() == "") ? ViewControllerType.login : ViewControllerType.issue
+        (UserDefaultManager.shared.getAccessToken().isEmpty) ? ViewControllerType.login : ViewControllerType.issue
     }
 }

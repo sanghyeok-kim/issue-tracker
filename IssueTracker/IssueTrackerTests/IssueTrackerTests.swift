@@ -13,9 +13,11 @@ import RxSwift
 class IssueTrackerTests: XCTestCase {
     
     var tokenExchangable: GitHubTokenExchangable!
+    var reactor: SceneReactor!
     
     override func setUpWithError() throws {
         tokenExchangable = GithubRepositoryStub()
+        reactor = SceneReactor(tokenProvider: tokenExchangable)
     }
     
     func testTokenExchange() throws {
@@ -38,4 +40,30 @@ class IssueTrackerTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
+    func testSceneReactor() throws {
+        let expectation = XCTestExpectation()
+        
+        reactor.action
+            .onNext(.checkRootViewController)
+        
+        reactor.action
+            .onNext(.inputUserCode("code"))
+        
+        reactor.state
+            .map { $0.rootViewController }
+            .bind { viewControllerType in
+            XCTAssertEqual(true, (viewControllerType == .issue || viewControllerType == .login) )
+        }
+        .dispose()
+        
+        reactor.state
+            .map { $0.hasToken }
+            .bind {
+                XCTAssertEqual(true, $0)
+                expectation.fulfill()
+            }
+            .dispose()
+        wait(for: [expectation], timeout: 1.0)
+        
+    }
 }
