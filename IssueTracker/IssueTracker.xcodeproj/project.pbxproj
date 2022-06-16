@@ -55,6 +55,7 @@
 /* Begin PBXFileReference section */
 		056C0BEA14BB8DBADD04A529 /* Pods-IssueTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-IssueTrackerTests/Pods-IssueTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		099331BC160144CC1371E258 /* Pods-IssueTracker-IssueTrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker-IssueTrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-IssueTracker-IssueTrackerUITests/Pods-IssueTracker-IssueTrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
+		1E87D6CE285AD7B900599AC9 /* SecretAPIKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = SecretAPIKey.xcconfig; sourceTree = "<group>"; };
 		2A86D9016212AED3D7CC82B9 /* Pods-IssueTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IssueTracker.release.xcconfig"; path = "Target Support Files/Pods-IssueTracker/Pods-IssueTracker.release.xcconfig"; sourceTree = "<group>"; };
 		421D64DBDD9DFB4CB324348D /* Pods_IssueTracker_IssueTrackerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IssueTracker_IssueTrackerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F2FDF9ABACA5EE19C1D8F54 /* Pods_IssueTrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IssueTrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +123,7 @@
 		722DBF102856CBC80021782E = {
 			isa = PBXGroup;
 			children = (
+				1E87D6CE285AD7B900599AC9 /* SecretAPIKey.xcconfig */,
 				724F0EB0285860A60094351C /* MockAccessToken.json */,
 				7235D91A2856D05200EDE584 /* .swiftlint.yml */,
 				722DBF1B2856CBC80021782E /* IssueTracker */,
@@ -604,6 +606,7 @@
 /* Begin XCBuildConfiguration section */
 		722DBF412856CBCA0021782E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E87D6CE285AD7B900599AC9 /* SecretAPIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -665,6 +668,7 @@
 		};
 		722DBF422856CBCA0021782E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E87D6CE285AD7B900599AC9 /* SecretAPIKey.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

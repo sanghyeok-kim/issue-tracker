@@ -66,6 +66,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
         super.init()
         DependencyInjector.shared.injecting(to: self)
         sceneInit.accept(())
+        
+        let clientId = Bundle.main.object(forInfoDictionaryKey: "Client_ID") as? String ?? ""
+        let clientSecret = Bundle.main.object(forInfoDictionaryKey: "Client_Secret") as? String ?? ""
     }
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
