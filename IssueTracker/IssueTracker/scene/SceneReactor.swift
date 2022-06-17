@@ -41,8 +41,7 @@ final class SceneReactor: Reactor {
                 .do { accessToken in
                     UserDefaultManager.shared.save(accessToken: accessToken)
                 }
-                .map { [weak self] _ in
-                    guard let self = self else { return Mutating.updateAccessTokenState(false) }
+                .map { _ in
                     return Mutating.updateAccessTokenState(!UserDefaultManager.shared.getAccessToken().isEmpty)
                 }
             

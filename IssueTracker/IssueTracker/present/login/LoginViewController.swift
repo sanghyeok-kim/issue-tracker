@@ -6,13 +6,8 @@
 //
 
 import ReactorKit
-import RxAppState
 
 final class LoginViewController: UIViewController, View, DependencySetable {
-    func setDependency(dependency: LoginDependency) {
-        self.dependency = dependency
-    }
-    
     var dependency: LoginDependency? {
         didSet {
             self.reactor = dependency?.manager
