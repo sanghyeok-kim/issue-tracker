@@ -14,7 +14,7 @@ final class DependencyInjector {
         ObjectIdentifier(SceneDelegate.self): SceneDependency(manager: SceneReactor(tokenProvider: GithubTokenRepository())),
         ObjectIdentifier(LoginViewController.self): LoginDependency(manager: LoginReactor())]
     
-    func injecting<T: DependencySetable>(to compose: T){
+    func injecting<T: DependencySetable>(to compose: T) {
         guard let dependency = dependencyDictionary[ObjectIdentifier(type(of: compose.self))],
               let detailedDependency = dependency as? T.DependencyType else {
                   return
@@ -25,8 +25,12 @@ final class DependencyInjector {
 
 protocol DependencySetable: AnyObject {
     associatedtype DependencyType
-    func setDependency(dependency: DependencyType)
     var dependency: DependencyType? { get set }
+}
+extension DependencySetable {
+    func setDependency(dependency: DependencyType) {
+        self.dependency = dependency
+    }
 }
 
 protocol Dependency {

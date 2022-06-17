@@ -16,6 +16,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let sceneInit = PublishRelay<Void>()
     private let takeCode = PublishRelay<String>()
+    private var coordinator: AppCoordinator?
+    private let rootNavigationController = UINavigationController()
     
     private var rootViewController: UIViewController?
     var dependency: SceneDependency? {
@@ -23,10 +25,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
             self.reactor = dependency?.manager
         }
     }
-    
-    func setDependency(dependency: SceneDependency) {
-        self.dependency = dependency
-    }
+
     func bind(reactor: SceneReactor) {
         sceneInit
             .map { Reactor.Action.checkRootViewController }
@@ -44,7 +43,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
             .compactMap { $0 }
             .bind { [weak self] viewControllerType in
                 guard let self = self else { return }
-                self.rootViewController = self.setRootViewController(viewController: viewControllerType)
+                self.coordinator = AppCoordinator(navigationController: self.rootNavigationController,
+                                                  presentViewController: viewControllerType)
+                self.coordinator?.start()
             }
             .disposed(by: disposeBag)
         
@@ -54,7 +55,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
             .filter { $0 }
             .bind { [weak self] _ in
                 guard let self = self else { return }
-                UIApplication.shared.keyWindow?.rootViewController = self.setRootViewController(viewController: .issue)
+                UIApplication.shared.keyWindow?.rootViewController = self.rootViewController
+                self.coordinator = AppCoordinator(navigationController: self.rootNavigationController,
+                                                  presentViewController: .issue)
+                self.coordinator?.start()
             }
             .disposed(by: disposeBag)
             
@@ -68,11 +72,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
         sceneInit.accept(())
     }
     
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            //window.rootViewController = rootViewController
-            window.rootViewController = LoginViewController()
+            window.rootViewController = self.rootNavigationController
+            //window.rootViewController = LoginViewController()
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -84,19 +90,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencyS
         takeCode.accept(code)
     }
 }
-extension SceneDelegate {
-    private func setRootViewController(viewController: ViewControllerType) -> UIViewController {
-        switch viewController {
-        case .login:
-            return LoginViewController()
-        case .issue:
-            return IssueViewController()
-        }
-    }
-}
 
 struct SceneDependency: Dependency {
     typealias ManagerType = SceneReactor
     let manager: ManagerType
 }
-
+ 
