@@ -9,14 +9,23 @@ import UIKit
 import ReactorKit
 import RxRelay
 
-final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View, DependencySetable {
+    typealias DependencyType = SceneDependency
+    
     var disposeBag: DisposeBag = DisposeBag()
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private let sceneInit = PublishRelay<Void>()
     private let takeCode = PublishRelay<String>()
+    private var coordinator: AppCoordinator?
+    private let rootNavigationController = UINavigationController()
     
     private var rootViewController: UIViewController?
-    
+    var dependency: SceneDependency? {
+        didSet {
+            self.reactor = dependency?.manager
+        }
+    }
+
     func bind(reactor: SceneReactor) {
         sceneInit
             .map { Reactor.Action.checkRootViewController }
@@ -30,31 +39,46 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         
         reactor.state
             .map { $0.rootViewController }
+            .distinctUntilChanged()
             .compactMap { $0 }
             .bind { [weak self] viewControllerType in
                 guard let self = self else { return }
-                let viewController = self.setRootViewController(viewController: viewControllerType)
-                if self.rootViewController != nil {
-                    UIApplication.shared.keyWindow?.rootViewController = viewController
-                }
-                self.rootViewController = viewController
+                self.coordinator = AppCoordinator(navigationController: self.rootNavigationController,
+                                                  presentViewController: viewControllerType)
+                self.coordinator?.start()
             }
             .disposed(by: disposeBag)
+        
+        reactor.state
+            .map { $0.hasToken }
+            .compactMap { $0 }
+            .filter { $0 }
+            .bind { [weak self] _ in
+                guard let self = self else { return }
+                UIApplication.shared.keyWindow?.rootViewController = self.rootViewController
+                self.coordinator = AppCoordinator(navigationController: self.rootNavigationController,
+                                                  presentViewController: .issue)
+                self.coordinator?.start()
+            }
+            .disposed(by: disposeBag)
+            
     }
     
     var window: UIWindow?
     
     override init() {
         super.init()
-        self.reactor = SceneReactor(tokenProvider: GithubTokenRepository())
+        DependencyInjector.shared.injecting(to: self)
         sceneInit.accept(())
     }
     
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene,
+               willConnectTo session: UISceneSession,
+               options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            //window.rootViewController = rootViewController
-            window.rootViewController = LoginViewController(reactor: LoginReactor())
+            window.rootViewController = self.rootNavigationController
+            //window.rootViewController = LoginViewController()
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -66,19 +90,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate, View {
         takeCode.accept(code)
     }
 }
-extension SceneDelegate {
-    private func setRootViewController(viewController: ViewControllerType) -> UIViewController {
-        switch viewController {
-        case .login:
-            return LoginViewController(reactor: LoginReactor())
-        case .issue:
-            return IssueViewController()
-        }
-    }
-}
 
-struct Token: Decodable {
-    let access_token: String
-    let scope: String
-    let token_type: String
+struct SceneDependency: Dependency {
+    typealias ManagerType = SceneReactor
+    let manager: ManagerType
 }
+ 

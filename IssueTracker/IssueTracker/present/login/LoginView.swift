@@ -154,6 +154,5 @@ final class LoginView: UIView {
             make.trailing.equalToSuperview().offset(-15)
             make.height.equalTo(60)
         }
-
     }
 }

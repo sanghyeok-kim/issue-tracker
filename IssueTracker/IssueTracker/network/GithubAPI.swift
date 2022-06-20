@@ -10,10 +10,10 @@ import Moya
 enum GithubAPI {
     case exchangeToken(String)
     private var clientID: String {
-        return "2ca00a62da0566df46d7"
+        return Bundle.main.object(forInfoDictionaryKey: "Client_ID") as? String ?? ""
     }
     private var clientSecret: String {
-        return "bf9ac50f855cabc69474299b177fa9e5082bdf07"
+        return Bundle.main.object(forInfoDictionaryKey: "Client_Secret") as? String ?? ""
     }
 }
 
